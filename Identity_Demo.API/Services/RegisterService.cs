@@ -1,5 +1,5 @@
 ﻿using Identity_Demo.API.IServices;
-using Identity_Demo.API.Models;
+using Identity_Demo.Shared.Models;
 using Microsoft.AspNetCore.Identity;
 
 namespace Identity_Demo.API.Services

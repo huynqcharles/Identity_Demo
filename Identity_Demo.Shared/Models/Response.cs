@@ -1,4 +1,4 @@
-﻿namespace Identity_Demo.API.Models
+﻿namespace Identity_Demo.Shared.Models
 {
     public class Response
     {

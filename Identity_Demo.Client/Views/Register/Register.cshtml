@@ -1,0 +1,22 @@
+﻿@model Identity_Demo.Shared.Models.RegisterUser
+
+<form asp-action="Register">
+    <div class="form">
+        <label>Username:</label>
+        <input type="text" class="form-control" asp-for="Username" />
+    </div>
+    <div class="form">
+        <label>Email:</label>
+        <input type="email" class="form-control" asp-for="Email" />
+    </div>
+    <div class="form">
+        <label>Password:</label>
+        <input type="password" class="form-control" asp-for="Password" />
+    </div>
+    <div class="form">
+        <label>Confirm password:</label>
+        <input type="password" class="form-control" asp-for="ConfirmPassword" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Register</button>
+</form>

@@ -1,4 +1,4 @@
-﻿using Identity_Demo.API.Models;
+﻿using Identity_Demo.Shared.Models;
 
 namespace Identity_Demo.API.IServices
 {
