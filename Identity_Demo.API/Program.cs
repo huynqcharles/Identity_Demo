@@ -16,6 +16,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 
 // Add Dependencies
 builder.Services.AddScoped<IRegisterService, RegisterService>();
+builder.Services.AddScoped<ILoginService, LoginService>();
 
 // Add Identity
 builder.Services.AddIdentity<IdentityUser, IdentityRole>()

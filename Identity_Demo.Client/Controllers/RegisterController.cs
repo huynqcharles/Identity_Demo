@@ -32,6 +32,8 @@ namespace Identity_Demo.Client.Controllers
 
             // Send request POST to register API
             var response = await _httpClient.PostAsync($"https://localhost:7067/api/register{queryString}", stringContent);
+            
+            ViewBag.Message = await response.Content.ReadAsStringAsync();
             return View();
         }
     }
