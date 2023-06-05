@@ -1,9 +1,13 @@
 ﻿using Identity_Demo.Shared.Models;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Data;
 using System.IdentityModel.Tokens.Jwt;
 using System.Net.Http;
+using System.Reflection;
+using System.Security.Claims;
 using System.Text;
 
 namespace Identity_Demo.Client.Controllers
@@ -38,9 +42,16 @@ namespace Identity_Demo.Client.Controllers
             {
                 var token = await response.Content.ReadAsStringAsync();
 
-                HttpContext.Session.SetString("JWTToken", token);
+                var handler = new JwtSecurityTokenHandler();
+                var jwt = handler.ReadJwtToken(token);
 
-                var responseToken = new JwtSecurityTokenHandler().ReadJwtToken(token);
+                var identity = new ClaimsIdentity(CookieAuthenticationDefaults.AuthenticationScheme);
+                identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, jwt.Claims.FirstOrDefault(u => u.Type == ClaimTypes.NameIdentifier).Value));
+                identity.AddClaim(new Claim(ClaimTypes.Role, jwt.Claims.FirstOrDefault(u => u.Type == ClaimTypes.Role).Value));
+                var principal = new ClaimsPrincipal(identity);
+                await HttpContext.SignInAsync(principal);
+
+                var check = User.Identity.IsAuthenticated;
 
                 return RedirectToAction("Index", "Home");
             }
@@ -51,9 +62,9 @@ namespace Identity_Demo.Client.Controllers
             }
         }
 
-        public IActionResult Logout()
+        public async Task<IActionResult> Logout()
         {
-            HttpContext.Session.Remove("JWTToken");
+            await HttpContext.SignOutAsync();
             return RedirectToAction("Index", "Home");
         }
     }

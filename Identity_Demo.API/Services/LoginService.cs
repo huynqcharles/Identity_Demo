@@ -30,9 +30,9 @@ namespace Identity_Demo.API.Services
                 var claims = new List<Claim>()
                 {
                     new Claim("Id", user.Id.ToString()),
-                    new Claim("Username", user.UserName.ToString()),
-                    new Claim("Email", user.Email.ToString()),
-                    new Claim("Role", roles.FirstOrDefault())
+                    new Claim(ClaimTypes.NameIdentifier, user.UserName.ToString()),
+                    new Claim(ClaimTypes.Email, user.Email.ToString()),
+                    new Claim(ClaimTypes.Role, roles.FirstOrDefault())
                 };
 
                 // Create JWT Token
